@@ -14,16 +14,13 @@ function* watchFetchListTaskAction() {
 
 while(true){
     yield take(FETCH_TASK);
-    console.log("adad");
     yield put(showLoading());
     try {
-     
       const resp =yield call(taskApis.getList);
       console.log("taskAPI:",resp.data);
       const {status,data} = resp;
         if(status===STATUS_CODE.SUCCESS){
-        yield put(fetchListTaskSuccess(data));
-       
+        yield put(fetchListTaskSuccess(data));  
         yield put(hideLoading());
       }
     }
@@ -59,11 +56,13 @@ function* addTaskSaga({payload}){
   const resp = yield call(taskApis.addTask,{
     title,
     description,
-    state: "READY"
+    status: "0"
   })
   
   const {status,data} = resp;
-    if(status===STATUS_CODE.SUCCESS){
+  debugger;
+  console.log("resp",resp);
+    if(status===STATUS_CODE.CREATED){
       yield put(addTaskSuccess(data));
       yield put(hideModal())
     }else{

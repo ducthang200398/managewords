@@ -49,7 +49,7 @@ class TaskBoard extends Component {
   componentDidMount(){
     const {taskActionsCreator} = this.props;
     const {fetchListTask}= taskActionsCreator;
-    console.log("hehe");
+    // console.log("hehe");
     fetchListTask();
   }
 
