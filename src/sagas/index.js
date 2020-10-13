@@ -19,14 +19,12 @@ while(true){
     try {
      
       const resp =yield call(taskApis.getList);
+      console.log("taskAPI:",resp.data);
       const {status,data} = resp;
         if(status===STATUS_CODE.SUCCESS){
         yield put(fetchListTaskSuccess(data));
        
-      }else{
-          
-        yield put(fetchListTaskFaild(data));
-        
+        yield put(hideLoading());
       }
     }
     catch{
@@ -82,7 +80,7 @@ function* addTaskSaga({payload}){
 function* rootSaga() {
     yield fork(watchFetchListTaskAction);
     yield takeLatest(FILTER_TASK,filterTaskSaga);
-    // yield takeEvery(ADD_TASK,addTaskSaga);
+    yield takeEvery(ADD_TASK,addTaskSaga);
 
 
 }

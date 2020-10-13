@@ -19,27 +19,27 @@ import * as modalActions from './../../action/modal'
 import Button from '@material-ui/core/Button';
 
 
-const listTask = [
-  {
-    id: 1,
-    title: 'Read book',
-    description: 'Read material ui book',
-    status: 0,
-  },
-  {
-    id: 2,
-    title: 'Play football',
-    description: 'With my friend',
-    status: 2,
-  },
-  {
-    id: 3,
-    title: 'Play game',
-    description: '',
-    status: 1,
-  },
+// const listTask = [
+//   {
+//     id: 1,
+//     title: 'Read book',
+//     description: 'Read material ui book',
+//     status: 0,
+//   },
+//   {
+//     id: 2,
+//     title: 'Play football',
+//     description: 'With my friend',
+//     status: 2,
+//   },
+//   {
+//     id: 3,
+//     title: 'Play game',
+//     description: '',
+//     status: 1,
+//   },
 
-];
+// ];
 
 class TaskBoard extends Component {
   state = {
@@ -77,14 +77,17 @@ class TaskBoard extends Component {
     return xhtml;
   }
 
-  renderBoard() {
+  renderBoard = () => {
     let xhtml = null;
+    const listTask = this.props.listTask;
+    // console.log("listTask:",listTask);
+
     xhtml = (
       <div style={{ padding: 20 }}>
       <Grid container spacing={2}>
         {STATUSES.map(status => {
           const taskFiltered = listTask.filter(
-            task => task.status === status.value,
+            task => task.status === status.value
           );
           return (
             <TaskList key={status.value} tasks={taskFiltered} status={status} />
@@ -96,12 +99,12 @@ class TaskBoard extends Component {
     return xhtml;
   }
 
-  renderForm() {
-    const { open } = this.state;
-    let xhtml = null;
-    xhtml = <TaskForm open={open} onClose={this.handleClose} />;
-    return xhtml;
-  }
+  // renderForm() {
+  //   const { open } = this.state;
+  //   let xhtml = null;
+  //   xhtml = <TaskForm open={open} onClose={this.handleClose} />;
+  //   return xhtml;
+  // }
   showToast(){
     toast.success("thanh cong")
   }
@@ -128,13 +131,17 @@ class TaskBoard extends Component {
         </Box>
         {this.renderSeachBox()}
         {this.renderBoard()}
-        {this.renderForm()}
+        {/* {this.renderForm()} */}
         
       </div>
     );
   }
 }
-const mapStatetoProps = null;
+const mapStatetoProps = state => {
+  return {
+    listTask: state.task.listTask
+  };
+};
 const mapDispatchtoProps = dispatch=>{
   return {
     taskActionsCreator: bindActionCreators(taskActions,dispatch),

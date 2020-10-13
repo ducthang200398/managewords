@@ -7,7 +7,9 @@ import TaskItem from '../TaskItem';
 
 class TaskList extends Component {
   render() {
+    
     const { classes, tasks, status } = this.props;
+    console.log(" this.props", this.props);
     return (
       <Grid item md={4} xs={12} key={status.value}>
         <Box mt={2} mb={2}>

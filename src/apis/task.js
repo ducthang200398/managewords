@@ -1,7 +1,7 @@
 import axiosService from '../commons/axiosService'
 import {API_ENDPOINT} from '../constants'
 
-const url = '/users';
+const url = '';
 
 export const getList =()=>{
     // console.log(axiosService.get(`${API_ENDPOINT}${url}`));
