@@ -18,9 +18,12 @@ export const fetchListTaskFaild =(error)=>{
         }
     }
 }
-export const fetchListTask = ()=>{
+export const fetchListTask = (params={})=>{
     return {
-        type: FETCH_TASK
+        type: FETCH_TASK,
+        payload:{
+            params, 
+        }
     }
 }
 // export const fetchListTaskRequest = () =>{
@@ -39,22 +42,22 @@ export const fetchListTask = ()=>{
        
 //     }
 // }
-export const filterTask = (keyword)=>{
+export const filterTask = (params)=>{
     return {
         type: FILTER_TASK,
         payload:{
-            keyword
+            params
         }
     }
 }
-export const filterTaskSucess = (data)=>{
-    return {
-        type: FILTER_TASK_SUCCESS,
-        payload:{
-            data
-        }
-    }
-}
+// export const filterTaskSucess = (data)=>{
+//     return {
+//         type: FILTER_TASK_SUCCESS,
+//         payload:{
+//             data
+//         }
+//     }
+// }
 
 export const addTaskSuccess =(data)=>{
     return {

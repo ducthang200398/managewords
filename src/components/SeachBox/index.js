@@ -9,7 +9,7 @@ import { TextField } from '@material-ui/core';
 class SeachBox extends Component {
   render() {
     const { classes,handleChange} = this.props;
-    console.log("handleChange:",handleChange)
+    // console.log("handleChange:",handleChange)
     return (
         <form className={classes.root} noValidate autoComplete="off">
         <TextField 

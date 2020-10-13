@@ -4,7 +4,7 @@ import * as taskApis from './../apis/task';
 import { showLoading, hideLoading } from './../action/ui';
 import {ADD_TASK, FETCH_TASK, FILTER_TASK, } from './../constants/task'
 import  {STATUS_CODE} from './../constants/index';
-import {fetchListTaskSuccess,fetchListTaskFaild, addTaskSuccess, addTaskFaild,} from './../action/task'
+import {fetchListTaskSuccess,fetchListTaskFaild, addTaskSuccess, addTaskFaild, fetchListTask,} from './../action/task'
 import { hideModal } from '../action/modal';
 
 
@@ -13,11 +13,17 @@ import { hideModal } from '../action/modal';
 function* watchFetchListTaskAction() {
 
 while(true){
-    yield take(FETCH_TASK);
+    const  action =  yield take(FETCH_TASK);
+    console.log("action:",action);
+    const {payload}=action;
+    const {params}=payload;
+    console.log("params:",params);
     yield put(showLoading());
-    try {
-      const resp =yield call(taskApis.getList);
+    try { 
+      console.log("taskAPI:");
+      const resp =yield call(()=>taskApis.getList(params));
       console.log("taskAPI:",resp.data);
+      console.log("taskAPI:",resp.status);
       const {status,data} = resp;
         if(status===STATUS_CODE.SUCCESS){
         yield put(fetchListTaskSuccess(data));  
@@ -34,16 +40,20 @@ while(true){
     }
 }
 function* filterTaskSaga({payload}){
-  yield delay(500);
-  console.log(payload.keyword)
-  const {keyword}=payload;
-  const list = yield select(state=>state.tast.listTask);
-  const filterTask = list.filter(task=>
-    task.tiltle
-    .strim().toLowerCase()
-    .includes(keyword.strim()
-    .toLowerCase));
-    console.log('filtertask:' ,filterTask )
+  yield delay(1500);
+  console.log("filterTaskSaga");
+ const {params}=payload;
+  
+  yield put(fetchListTask({q : params}));
+  // console.log(payload.keyword)
+  // const {keyword}=payload;
+  // const list = yield select(state=>state.tast.listTask);
+  // const filterTask = list.filter(task=>
+  //   task.tiltle
+  //   .strim().toLowerCase()
+  //   .includes(keyword.strim()
+  //   .toLowerCase));
+  //   console.log('filtertask:' ,filterTask )
   
   
 }

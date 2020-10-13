@@ -68,8 +68,10 @@ class TaskBoard extends Component {
 
   };
   handleFilter = (e)=>{
-    console.log(e);
-
+    const {value}=e.target;
+    const {taskActionsCreator} = this.props;
+    const {filterTask}= taskActionsCreator;
+    filterTask(value);
   }
   renderSeachBox() {
     let xhtml = null;
