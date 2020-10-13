@@ -10,7 +10,7 @@ import { Modal } from '@material-ui/core';
 
 class ModalComponent extends Component {
   render() {
-    const { open,classes,onClose,component,modalActionsCreator} = this.props;
+    const { open,classes,component,modalActionsCreator,title} = this.props;
     const {hideModal}=modalActionsCreator;
     console.log(classes)
     // const {modal,header,icon}=classes;
@@ -19,7 +19,7 @@ class ModalComponent extends Component {
         <div  className= {classes.modal}>
           <div className={classes.header} >
             <span >
-             Content
+            {title}
             </span>
             <CloseIcon className={classes.icon} onClick={hideModal} />
 

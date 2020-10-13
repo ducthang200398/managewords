@@ -1,6 +1,6 @@
 
 // import {FETCH_TASK} from './../constants/index'
-import {ADD_TASK, ADD_TASK_FAILD, ADD_TASK_SUCCESS, FETCH_TASK, FETCH_TASK_FAILD, FETCH_TASK_SUCCESS, FILTER_TASK,FILTER_TASK_SUCCESS} from './../constants/task'
+import {ADD_TASK, ADD_TASK_FAILD, ADD_TASK_SUCCESS, FETCH_TASK, FETCH_TASK_EDITING, FETCH_TASK_FAILD, FETCH_TASK_SUCCESS, FILTER_TASK,FILTER_TASK_SUCCESS} from './../constants/task'
  
 export const fetchListTaskSuccess =(data)=>{
     return {
@@ -83,6 +83,14 @@ export const addTask = (data)=>{
         payload:{
             title,
             description
+        }
+    }
+}
+export const fetchTaskEditing = (task)=>{
+    return {
+        type: FETCH_TASK_EDITING,
+        payload:{
+            task, 
         }
     }
 }

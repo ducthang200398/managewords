@@ -42,26 +42,18 @@ import Button from '@material-ui/core/Button';
 // ];
 
 class TaskBoard extends Component {
-  state = {
-    open: false,
-  };
-
   componentDidMount(){
     const {taskActionsCreator} = this.props;
     const {fetchListTask}= taskActionsCreator;
     // console.log("hehe");
     fetchListTask();
   }
-
-  handleClose = () => {
-    this.setState({
-      open: false,
-    });
-  };
-
   openForm = () => {
     const {modalActionsCreator}=this.props;
-    const {showModal,changeModalConTent,changeModalTitle}= modalActionsCreator;
+    const {taskActionsCreator} = this.props;
+    const {fetchTaskEditing}= taskActionsCreator;
+    const {showModal,changeModalConTent,changeModalTitle,}= modalActionsCreator;
+    fetchTaskEditing(null);
     showModal();
     changeModalTitle("Add New Task");
     changeModalConTent(<TaskForm />);
@@ -70,6 +62,7 @@ class TaskBoard extends Component {
   handleFilter = (e)=>{
     const {value}=e.target;
     const {taskActionsCreator} = this.props;
+
     const {filterTask}= taskActionsCreator;
     filterTask(value);
   }
@@ -78,12 +71,21 @@ class TaskBoard extends Component {
     xhtml =(<SeachBox handleChange = {this.handleFilter}/>)
     return xhtml;
   }
-
+  handleEdit = (task) =>{
+    const {taskActionsCreator} = this.props;
+    const {modalActionsCreator}=this.props;
+    const {fetchTaskEditing}= taskActionsCreator;
+    const {showModal,changeModalConTent,changeModalTitle,}= modalActionsCreator;
+    fetchTaskEditing(task);
+    showModal();
+    changeModalTitle("Edit Old Task");
+    changeModalConTent(<TaskForm />);
+  }
   renderBoard = () => {
     let xhtml = null;
     const listTask = this.props.listTask;
     // console.log("listTask:",listTask);
-
+    // console.log()
     xhtml = (
       <div style={{ padding: 20 }}>
       <Grid container spacing={2}>
@@ -92,7 +94,7 @@ class TaskBoard extends Component {
             task => task.status === status.value
           );
           return (
-            <TaskList key={status.value} tasks={taskFiltered} status={status} />
+            <TaskList key={status.value} tasks={taskFiltered} status={status} handleEdit={this.handleEdit} />
           );
         })}
       </Grid>

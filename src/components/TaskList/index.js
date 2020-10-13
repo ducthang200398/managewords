@@ -8,8 +8,8 @@ import TaskItem from '../TaskItem';
 class TaskList extends Component {
   render() {
     
-    const { classes, tasks, status } = this.props;
-    // console.log(" this.props", this.props);
+    const { classes, tasks, status,handleEdit } = this.props;
+    console.log(" this.props", this.props.handleEdit);
     return (
       <Grid item md={4} xs={12} key={status.value}>
         <Box mt={2} mb={2}>
@@ -17,7 +17,7 @@ class TaskList extends Component {
         </Box>
         <div className={classes.wrapperListTask}>
           {tasks.map(task => {
-            return <TaskItem task={task} status={status} key={task.id} />;
+            return <TaskItem task={task} status={status} key={task.id} onClick={()=>handleEdit(task)} />;
           })}
         </div>
       </Grid>

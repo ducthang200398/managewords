@@ -35,7 +35,7 @@ class TaskForm extends Component {
     return error;
   }
   render() {
-    const {classes,modalActionsCreator,handleSubmit,submitting,invalid} = this.props;
+    const {classes,modalActionsCreator,handleSubmit,submitting,invalid,editing} = this.props;
     console.log('submitting: ',submitting);
     const {hideModal}= modalActionsCreator;
     return (
@@ -57,7 +57,8 @@ class TaskForm extends Component {
              component={renderTextField}
               label="Tieu De"  
               className={classes.TextField} 
-              margin="normal" />
+              margin="normal"
+              value={editing ? editing.title: "" } />
           </Grid>
           <Grid   item md ={12}>
           {/* <TextField
@@ -73,13 +74,15 @@ class TaskForm extends Component {
             multiline 
             validate ={[this.required,this.minlength]} 
             className={classes.TextField} 
-            margin="normal" />
+            margin="normal" 
+            value={editing ? editing.description: "" }
+            />
           </Grid>
           <Grid item md = {12}  >
           <Box display="flex" flexDirection="row-reverse">
             <Box><Button variant="contained" color="secondary" onClick={hideModal}>Cancel</Button></Box>
             <Box mr={1}>
-            <Button disabled ={invalid || submitting} variant="contained" color="primary" type="submit">Save</Button>
+            <Button disabled ={invalid} variant="contained" color="primary" type="submit">Save</Button>
             </Box>
           </Box> 
           </Grid>
@@ -92,11 +95,17 @@ const mapStatetoProps = state => ({
   open: state.modal.showModal,
   component: state.modal.component,
   title:state.modal.title,
+  task:state.task.editing,
+  initialValues: {
+    title: state.task.editing ? state.task.editing.title: "",
+    description:state.task.editing ? state.task.editing.description: ""
+  }
 });
 const mapDispatchtoProps = dispatch =>{
 return {
   taskActionsCreator: bindActionCreators(taskActions,dispatch),
-  modalActionsCreator: bindActionCreators(modalActions,dispatch)
+  modalActionsCreator: bindActionCreators(modalActions,dispatch),
+
 }
 };  
 const withConnect = connect(

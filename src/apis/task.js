@@ -11,9 +11,8 @@ export const getList =(params={})=>{
         {
             queryparams= `?${qs.stringify(params)}`
         }
-    debugger;
-    console.log(`${API_ENDPOINT}${url}${queryparams}`);
-    debugger;
+
+    // console.log(`${API_ENDPOINT}${url}${queryparams}`);
     return axiosService.get(`${API_ENDPOINT}${url}${queryparams}`);
 }
 export const addTask =(data)=>{
