@@ -25,7 +25,8 @@ const reducer =  (state = initialState,action)=>{
                 listTask:[]
 
             }
-        case taskConstants.FILTER_TASK:
+        case taskConstants.FILTER_TASK_SUCCESS:
+            const {data}=action.payload
             // const {error}= action.payload;
             // toastError(error);
             return {

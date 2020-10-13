@@ -11,7 +11,7 @@ const theme = createMuiTheme({
     fontFamily: 'Roboto',
   },
   shape: {
-    // borderRadius: 4,
+    borderRadius: 4,
     backgroundColor: '#7B1FA2',
     textColor: '#FFFFFF',
     border: '#CCCCCC',

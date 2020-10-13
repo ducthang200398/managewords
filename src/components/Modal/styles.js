@@ -1,5 +1,3 @@
-
-
 const styles = (theme) => ({
     modal:{
         top: "50%",
@@ -8,6 +6,7 @@ const styles = (theme) => ({
         position: 'absolute',
         width: '500px',
         backgroundColor: '#ffffff',
+        outline:"none"
     },
     TextField:{
         width:'100%',
@@ -28,7 +27,7 @@ const styles = (theme) => ({
     },
     icon:{
         cursor:"pointer",
-        fontSize :15,
+        fontSize :30,
     }
 
 });

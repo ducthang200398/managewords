@@ -1,4 +1,4 @@
-import Button from '@material-ui/core/Button';
+
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/styles';
@@ -13,9 +13,10 @@ import { bindActionCreators } from 'redux';
 import * as taskActions from './../../action/task'
 import { toast } from 'react-toastify';
 import { Box } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
 import SeachBox from '../../components/SeachBox';
+import * as modalActions from './../../action/modal'
 // import {fetchListTask} from './../../action/task'
+import Button from '@material-ui/core/Button';
 
 
 const listTask = [
@@ -59,13 +60,20 @@ class TaskBoard extends Component {
   };
 
   openForm = () => {
-    this.setState({
-      open: true,
-    });
+    const {modalActionsCreator}=this.props;
+    const {showModal,changeModalConTent,changeModalTitle}= modalActionsCreator;
+    showModal();
+    changeModalTitle("Add New Task");
+    changeModalConTent(<TaskForm />);
+
   };
+  handleFilter = (e)=>{
+    console.log(e);
+
+  }
   renderSeachBox() {
     let xhtml = null;
-    xhtml =(<SeachBox />)
+    xhtml =(<SeachBox handleChange = {this.handleFilter}/>)
     return xhtml;
   }
 
@@ -101,7 +109,10 @@ class TaskBoard extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div  className={classes.taskBoard} id="1">
+      <div>
+      <Button >
+      Secondary
+    </Button>
         <Button
           variant="contained"
           color="primary"
@@ -126,7 +137,8 @@ class TaskBoard extends Component {
 const mapStatetoProps = null;
 const mapDispatchtoProps = dispatch=>{
   return {
-    taskActionsCreator: bindActionCreators(taskActions,dispatch)
+    taskActionsCreator: bindActionCreators(taskActions,dispatch),
+    modalActionsCreator: bindActionCreators(modalActions,dispatch)
   }
 };  
 
@@ -135,6 +147,12 @@ TaskBoard.propTypes = {
   classes: PropTypes.object,
   taskActionsCreator:PropTypes.shape({
     fetchListTask:PropTypes.func,
+  }),
+  modalActionsCreator:PropTypes.shape({
+    showModal:PropTypes.func,
+    hideModal:PropTypes.func,
+    changeModalTitle:PropTypes.func,
+    changeModalContent:PropTypes.func,
   })
 };
 

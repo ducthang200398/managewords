@@ -12,7 +12,7 @@ class AxiosService {
   }
 
   handleError(error) {
-      console.log(Promise.reject(error));
+   
     return Promise.reject(error);
   }
 
