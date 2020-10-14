@@ -133,7 +133,7 @@ export const deleteTaskFaild =(error)=>{
     }
 }
 export const deleteTask = (id)=>{
-    debugger;
+    // debugger;
     return {
         type: DELETE_TASK,
         payload:{

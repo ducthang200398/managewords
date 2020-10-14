@@ -19,6 +19,7 @@ while(true){
     const {params}=payload;
     console.log("params:",params);
     yield put(showLoading());
+
     try { 
       console.log("taskAPI:");
       const resp =yield call(()=>taskApis.getList(params));
@@ -59,7 +60,9 @@ function* filterTaskSaga({payload}){
 }
 function* addTaskSaga({payload}){
   // yield delay(500);
-  console.log("addTaskSaga")
+  yield put(showLoading());
+  console.log("addTaskSaga");
+  yield delay(1000);
   console.log(payload)
   const {title,description}=payload;
   yield put(showLoading);
@@ -70,10 +73,11 @@ function* addTaskSaga({payload}){
   })
   
   const {status,data} = resp;
-  debugger;
   console.log("resp",resp);
     if(status===STATUS_CODE.CREATED){
       yield put(addTaskSuccess(data));
+      // yield delay(2000);
+      yield put(hideLoading());
       yield put(hideModal())
     }else{
        
@@ -86,13 +90,13 @@ function* addTaskSaga({payload}){
 }
 function* updateTaskSaga({payload}){
   // yield delay(500);
+  yield put(showLoading());
   console.log("addTaskSaga")
-  debugger;
   console.log(payload)
   const  taskEditing = yield select(state=>state.task.editing)
   const {title,description,status}=payload;
-  yield put(showLoading);
-  debugger;
+  yield put(showLoading());
+
   const resp = yield call(taskApis.updateTask,{
     title,
     description,
@@ -100,7 +104,7 @@ function* updateTaskSaga({payload}){
   },taskEditing.id)
   
   const {data} = resp;
-  debugger;
+
   console.log("resp",resp);
     if(data){
       yield put(updateTaskSuccess(data));
@@ -110,29 +114,27 @@ function* updateTaskSaga({payload}){
       yield put(updateTaskFaild(data));
       yield put(hideModal())
     }
-    yield put(showLoading);
+    yield put(hideLoading());
     yield put(hideModal())
   
 }
 
 function* deleteTaskSaga({payload}){
-  // yield delay(500);
-  debugger;
-  console.log("deleteTaskSaga")
- 
+    // yield put(showLoading());
+  console.log("deleteTaskSaga");
   console.log(payload);
   const {id} = payload;
-  debugger;
   yield put(showLoading);
-  debugger;
   try { 
     console.log("taskAPI:");
     const resp = yield call(taskApis.deleteTask,id);
-    const {status,data} = resp;
+    const {status} = resp;
+
     console.log("status:",status);
       if(status===STATUS_CODE.SUCCESS){
-      // yield put(fetchListTask());  
+      yield put(deleteTaskSuccess(id));  
       yield put(hideLoading());
+      yield put(hideModal());
     }
   }
   catch{

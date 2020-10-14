@@ -73,6 +73,13 @@ const reducer =  (state = initialState,action)=>{
                 ...state,
                 listTask: newList,
             }
+            case taskConstants.DELETE_TASK_SUCCESS:
+                var {data:taskID}=action.payload;
+                debugger;
+                return {
+                    ...state,
+                    listTask: state.listTask.filter(item=>item.id!==taskID)
+                }
         default:
             return state;
     }
