@@ -1,3 +1,4 @@
+import { FullscreenExit } from "@material-ui/icons";
 
 
 const styles = (theme) => ({
@@ -29,6 +30,10 @@ const styles = (theme) => ({
     icon:{
         cursor:"pointer",
         fontSize :15,
+    },
+    select:{
+        display: "flex",
+        flexWap:"wrap"
     }
 
 });

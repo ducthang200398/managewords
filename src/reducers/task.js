@@ -55,6 +55,24 @@ const reducer =  (state = initialState,action)=>{
                 ...state,
                 editing: task,
             }
+        case taskConstants.UPDATE_TASK_SUCCESS:
+            var {data}=action.payload
+            const {listTask}= state;
+            const index = listTask.findIndex(item=>item.id===data.id);
+            let newList=[];
+            if(index !==-1)
+            {
+                 newList = [
+                    ...listTask.slice(0,index),
+                    data,
+                    ...listTask.slice(index+1),
+                ]
+            }
+            // toastError(error);
+            return {
+                ...state,
+                listTask: newList,
+            }
         default:
             return state;
     }

@@ -18,3 +18,10 @@ export const getList =(params={})=>{
 export const addTask =(data)=>{
     return axiosService.post(`${API_ENDPOINT}${url}`,data);
 }
+export const updateTask =(data,id)=>{
+    debugger;
+    return axiosService.put(`${API_ENDPOINT}${url}/${id}`,data);
+}
+export const deleteTask =(id)=>{
+    return axiosService.delete(`${API_ENDPOINT}${url}/${id}`);
+}

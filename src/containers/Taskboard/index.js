@@ -17,6 +17,7 @@ import SeachBox from '../../components/SeachBox';
 import * as modalActions from './../../action/modal'
 // import {fetchListTask} from './../../action/task'
 import Button from '@material-ui/core/Button';
+// import classes from '*.module.css';
 
 
 // const listTask = [
@@ -52,7 +53,7 @@ class TaskBoard extends Component {
     const {modalActionsCreator}=this.props;
     const {taskActionsCreator} = this.props;
     const {fetchTaskEditing}= taskActionsCreator;
-    const {showModal,changeModalConTent,changeModalTitle,}= modalActionsCreator;
+    const {showModal,changeModalConTent,changeModalTitle}= modalActionsCreator;
     fetchTaskEditing(null);
     showModal();
     changeModalTitle("Add New Task");
@@ -81,6 +82,40 @@ class TaskBoard extends Component {
     changeModalTitle("Edit Old Task");
     changeModalConTent(<TaskForm />);
   }
+  onClickDelete = (task) =>{
+    const {classes} = this.props;
+    const {modalActionsCreator}=this.props;
+    const {showModal,changeModalConTent,changeModalTitle,hideModal}= modalActionsCreator;
+    showModal();
+    changeModalTitle("Delete Task");
+    changeModalConTent(
+    <div >
+       <div>
+         Are you sure to delete the task  <span className={classes.comfirm}>{task.title}?</span>
+         </div> 
+   
+    <Box display="flex" flexDirection="row-reverse" mt={2}>
+      <Box ml={1}><Button variant="contained"  onClick={hideModal}>Cancel</Button></Box>
+      <Box>
+      <Button variant="contained" color="primary" onClick={()=>this.handleDeleteTask(task)}>
+        Agree
+      </Button>
+      </Box>
+     
+    </Box>
+    </div>
+      );
+  }
+  handleDeleteTask(task){
+    const {id} =task;
+    console.log("id:", id);
+    debugger;
+    const {taskActionsCreator} = this.props;
+    const {deleteTask}= taskActionsCreator;
+    console.log("deleteTask:",deleteTask);
+    deleteTask(id);
+    // console.log("this",this);
+  }
   renderBoard = () => {
     let xhtml = null;
     const listTask = this.props.listTask;
@@ -94,7 +129,7 @@ class TaskBoard extends Component {
             task => task.status === status.value
           );
           return (
-            <TaskList key={status.value} tasks={taskFiltered} status={status} handleEdit={this.handleEdit} />
+            <TaskList key={status.value} tasks={taskFiltered} status={status} handleEdit={this.handleEdit} onClickDelete={this.onClickDelete} />
           );
         })}
       </Grid>

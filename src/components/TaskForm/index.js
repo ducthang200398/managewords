@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/styles';
 import styles from './styles';
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, MenuItem } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import * as modalActions from  './../../action/modal';
@@ -11,13 +11,21 @@ import * as taskActions from  './../../action/task';
 import { Field, reduxForm } from 'redux-form'
 import renderTextField from '../FormHelper/TextField';
 import validate from './validate'
+import renderSelectField from '../FormHelper/SelectField';
 class TaskForm extends Component {
 
   handleSumitForm = (data)=>{
+    const {task} = this.props;
     const {taskActionsCreator}= this.props;
-    const {addTask}= taskActionsCreator;
-    const {title, description}=data;
-    addTask({title, description});
+    const {addTask,updateTask}= taskActionsCreator;
+    const {title, description,status}=data;
+    if(task&&task.id){
+      updateTask({title, description,status})
+    }
+    else {
+      addTask({title, description});
+    }
+    
 
   }
   required = (value)=>{
@@ -34,6 +42,26 @@ class TaskForm extends Component {
     }
     return error;
   }
+  renderStatusSelection()
+  {
+    let xhtml=null
+    const {task,classes}= this.props;
+    if(task && task.id )
+    {
+      xhtml=(<Field name="status"
+        id="status"
+        component={renderSelectField}
+        label="Trang Thai"  
+        className={classes.select}
+         >
+          <MenuItem value="0">READY</MenuItem>
+          <MenuItem value="1">INCOMPLETE</MenuItem>
+          <MenuItem value="2">COMPLETE</MenuItem>
+        </Field>)
+
+    }
+    return xhtml
+  }
   render() {
     const {classes,modalActionsCreator,handleSubmit,submitting,invalid,editing} = this.props;
     console.log('submitting: ',submitting);
@@ -42,8 +70,6 @@ class TaskForm extends Component {
      
         <form onSubmit={handleSubmit(this.handleSumitForm)}>
           <Grid className={classes.TextField}  >
-
-
             <Grid item md={12}>
 
           
@@ -78,6 +104,7 @@ class TaskForm extends Component {
             value={editing ? editing.description: "" }
             />
           </Grid>
+          {this.renderStatusSelection()}
           <Grid item md = {12}  >
           <Box display="flex" flexDirection="row-reverse">
             <Box><Button variant="contained" color="secondary" onClick={hideModal}>Cancel</Button></Box>
@@ -98,7 +125,8 @@ const mapStatetoProps = state => ({
   task:state.task.editing,
   initialValues: {
     title: state.task.editing ? state.task.editing.title: "",
-    description:state.task.editing ? state.task.editing.description: ""
+    description:state.task.editing ? state.task.editing.description: "",
+    status:state.task.editing ? state.task.editing.status: "",
   }
 });
 const mapDispatchtoProps = dispatch =>{

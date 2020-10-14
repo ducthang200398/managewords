@@ -12,8 +12,8 @@ import styles from './styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 class TaskItem extends Component {
   render() {
-    const { classes, task, status ,onClick} = this.props;
-    console.log("onClickEdit",onClick);
+    const { classes, task, status ,onClick,onClickDelete} = this.props;
+    console.log("onClickEdit",onClickDelete);
     const { id, title } = task;
     return (
       <Card key={id} className={classes.card}>
@@ -43,7 +43,7 @@ class TaskItem extends Component {
             // className={classes.fab}
             size="small"
           >
-            <AddIcon />
+            <AddIcon onClick={onClickDelete} />
           </Fab>
         </CardActions>
       </Card>
