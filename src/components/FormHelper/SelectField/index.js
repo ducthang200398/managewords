@@ -30,7 +30,6 @@ const renderSelectField = ({
           name: 'status',
           id:"status"
         }}
-        defaultValue={input.value}
         value = {input.value}
       >
         {children}

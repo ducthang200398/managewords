@@ -138,12 +138,6 @@ class TaskBoard extends Component {
     return xhtml;
   }
 
-  // renderForm() {
-  //   const { open } = this.state;
-  //   let xhtml = null;
-  //   xhtml = <TaskForm open={open} onClose={this.handleClose} />;
-  //   return xhtml;
-  // }
   showToast(){
     toast.success("thanh cong")
   }
@@ -151,10 +145,9 @@ class TaskBoard extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
-      <Button >
-      Secondary
-    </Button>
+      <div style={{margin:"8px"}}>
+        <Box display="flex" flexDirection="row" mt={2}>
+        <Box mr={2}>
         <Button
           variant="contained"
           color="primary"
@@ -163,15 +156,16 @@ class TaskBoard extends Component {
         >
           <AddIcon />Thêm mới công việc
         </Button>
-        <Box ml="1">
+        </Box>
+        <Box>
           <Button variant="contained" color ="primary" onClick={this.showToast}>
-            hien thi thong bao
+            LOAD INFOMATION
           </Button>
+        </Box>
         </Box>
         {this.renderSeachBox()}
         {this.renderBoard()}
-        {/* {this.renderForm()} */}
-        
+  
       </div>
     );
   }

@@ -1,3 +1,5 @@
+import Taskboard from "../containers/Taskboard";
+
 export const STATUSES = [
     {
       value: "0",
@@ -20,4 +22,17 @@ export const STATUS_CODE = {
   CREATED: 201,
   UPDATED: 202,
 };
+export const ADMIN_ROUTE = [
+  {
+      path:"/admin",
+      name:"Trang quan tri",
+      component: Taskboard
+  },
+  {
+    path:"/",
+    name:"Trang chu",
+    exact: true,
+    component: Taskboard
+  },
 
+];

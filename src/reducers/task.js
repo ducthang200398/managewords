@@ -1,4 +1,4 @@
-import { toastError } from '../helper/toastHelper';
+import { toastError, toastSuccess } from '../helper/toastHelper';
 import * as taskConstants from './../constants/task' 
 const  initialState = {
     listTask : [],
@@ -26,7 +26,8 @@ const reducer =  (state = initialState,action)=>{
 
             }
         case taskConstants.ADD_TASK:
-            var {data}=action.payload
+            var {data}=action.payload;
+            toastSuccess("Success");
             return {
                 ...state,
                 editing: null
@@ -67,15 +68,22 @@ const reducer =  (state = initialState,action)=>{
                     data,
                     ...listTask.slice(index+1),
                 ]
+                toastSuccess("Success");
+                return {
+                    ...state,
+                    listTask: newList,
+                }
             }
+            else
+                {   
+                    return state;
+                }
             // toastError(error);
-            return {
-                ...state,
-                listTask: newList,
-            }
+           
             case taskConstants.DELETE_TASK_SUCCESS:
                 var {data:taskID}=action.payload;
-                debugger;
+                    debugger;
+                toastSuccess("Success");
                 return {
                     ...state,
                     listTask: state.listTask.filter(item=>item.id!==taskID)
