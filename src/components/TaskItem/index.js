@@ -16,7 +16,7 @@ class TaskItem extends Component {
     console.log("onClickEdit",onClickDelete);
     const { id, title } = task;
     return (
-      <Card key={id} className={classes.card}>
+      <Card key={id} className={classes.card} spacing={1}>
         <CardContent>
           <Grid container justify="space-between">
             <Grid item md={8}>

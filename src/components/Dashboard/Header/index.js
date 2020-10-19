@@ -1,30 +1,24 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/styles';
-
 import styles from './styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
+
 
 const menuId = 'primary-search-account-menu';
-const mobileMenuId = 'primary-search-account-menu-mobile';
-class Dashboard extends Component {
+// const mobileMenuId = 'primary-search-account-menu-mobile';
+class Header extends Component {
     constructor(props){
         super();
         this.state={
-            mobileMoreAnchorEl:null,
-            isMobileMenuOpen :false,
             anchorEl : null,
             isMenuOpen:false,
         }
@@ -58,6 +52,13 @@ class Dashboard extends Component {
             </Menu>
           );
     } 
+    handleTogleSideBar =()=>{
+      const {showSidebar,onTogleSideBar}=this.props
+  
+      if(onTogleSideBar){
+        onTogleSideBar(!showSidebar)
+      }
+    }
     render() {
       const { classes,name} = this.props;
       return (
@@ -69,6 +70,7 @@ class Dashboard extends Component {
               className={classes.menuButton}
               color="inherit"
               aria-label="open drawer"
+              onClick={this.handleTogleSideBar}
             >
               <MenuIcon />
             </IconButton>
@@ -103,4 +105,4 @@ class Dashboard extends Component {
     }
   }
   
-  export default withStyles(styles)(Dashboard);
+  export default withStyles(styles)(Header);

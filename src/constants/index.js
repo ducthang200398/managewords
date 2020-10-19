@@ -26,13 +26,15 @@ export const ADMIN_ROUTE = [
   {
       path:"/admin",
       name:"Trang quan tri",
+      exact: true,
       component: Taskboard
   },
+];
+export const ROUTE = [
   {
     path:"/",
     name:"Trang chu",
     exact: true,
     component: Taskboard
   },
-
 ];
